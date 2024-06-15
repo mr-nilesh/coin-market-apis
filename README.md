@@ -1,2 +1,3 @@
 # coin-market-apis
-APIs for Cryptocurrency spot exchanges
+
+This package is the wrapper for Coinstore API https://coinstore-openapi.github.io/en/index.html#introduction
