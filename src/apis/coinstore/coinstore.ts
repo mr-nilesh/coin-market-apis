@@ -1,21 +1,21 @@
-import { ICoinStoreResponse } from '@infra/coinstore/dto/coinstoreResponse.interface';
-import { IAccountService } from '@modules/account/interfaces/account.service.interface';
-import { ITradeFilters } from '@modules/order/dto/order';
-import { IOrderService } from '@modules/order/interfaces/order.service.interface';
 import { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
 import { ICoinStore } from './coinstore.interface';
-import { IBasicInfoService } from '@modules/basicInfo/interfaces/basicInfo.service.interface';
-import { IGetCurrencyInfoFilters } from '@modules/basicInfo/dto/basicInfo';
+import { AppModule } from '../../app.module';
+import { ICoinStoreResponse } from '../../infra/coinstore/dto/coinstoreResponse.interface';
+import { IOrderService } from '../../modules/order/interfaces/order.service.interface';
+import { ITradeFilters } from '../../modules/order/dto/order';
+import { IAccountService } from '../../modules/account/interfaces/account.service.interface';
+import { IBasicInfoService } from '../../modules/basicInfo/interfaces/basicInfo.service.interface';
+import { IGetCurrencyInfoFilters } from '../../modules/basicInfo/dto/basicInfo';
 import {
   ICancelWithdrawFilters,
   IDepositAddressFilters,
   IDoWithdrawFilters,
   ITransferFund,
   IWithdrawalHistoryFilters,
-} from '@modules/fund/dto/fund';
-import { IFundService } from '@modules/fund/interfaces/fund.service.interface';
+} from '../../modules/fund/dto/fund';
+import { IFundService } from '../../modules/fund/interfaces/fund.service.interface';
 
 export class CoinStore implements ICoinStore {
   private _nestApp: INestApplicationContext;

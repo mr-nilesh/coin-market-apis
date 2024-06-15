@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import * as crypto from 'crypto';
 import { Inject, Injectable } from '@nestjs/common';
 import { ICoinStoreService, IRequestOptions } from './coinstore.interface';
-import { IHttpClient } from '@infra/http/http.interface';
+import { IHttpClient } from '../http/http.interface';
 
 @Injectable()
 export class CoinStoreService implements ICoinStoreService {

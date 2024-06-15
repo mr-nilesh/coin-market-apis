@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { IBasicInfoService } from './interfaces/basicInfo.service.interface';
 import { ConfigService } from '@nestjs/config';
-import { IHttpClient } from '@infra/http/http.interface';
-import { CoinStoreService } from '@infra/coinstore/coinstore.service';
 import { IGetCurrencyInfoFilters, IGetSymbolsFilters } from './dto/basicInfo';
-import { ICoinStoreResponse } from '@infra/coinstore/dto/coinstoreResponse.interface';
-import { API_URLS } from '@config/constant';
+import { CoinStoreService } from '../../infra/coinstore/coinstore.service';
+import { IHttpClient } from '../../infra/http/http.interface';
+import { ICoinStoreResponse } from '../../infra/coinstore/dto/coinstoreResponse.interface';
+import { API_URLS } from '../../config/constant';
 
 @Injectable()
 export class BasicInfoService

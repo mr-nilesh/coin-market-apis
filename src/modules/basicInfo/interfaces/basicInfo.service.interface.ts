@@ -1,4 +1,4 @@
-import { ICoinStoreResponse } from '@infra/coinstore/dto/coinstoreResponse.interface';
+import { ICoinStoreResponse } from '../../../infra/coinstore/dto/coinstoreResponse.interface';
 import { IGetCurrencyInfoFilters, IGetSymbolsFilters } from '../dto/basicInfo';
 
 export interface IBasicInfoService {

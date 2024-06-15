@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { ConfigService } from '@nestjs/config';
-import { HttpClient } from '@infra/http/http.service';
+import { HttpClient } from '../../infra/http/http.service';
 
 @Module({
   providers: [

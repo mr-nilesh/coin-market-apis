@@ -1,5 +1,5 @@
-import { PAGINATION } from 'src/config/constant';
-import { ITradeFilters } from 'src/modules/order/dto/order';
+import { PAGINATION } from '../config/constant';
+import { ITradeFilters } from '../modules/order/dto/order';
 
 export const getQueryString = (filters: ITradeFilters): string => {
   const params = new URLSearchParams();

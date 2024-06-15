@@ -1,4 +1,4 @@
-import { ICoinStoreResponse } from 'src/infra/coinstore/dto/coinstoreResponse.interface';
+import { ICoinStoreResponse } from '../../../infra/coinstore/dto/coinstoreResponse.interface';
 import { ITradeFilters } from '../dto/order';
 
 export interface IOrderService {

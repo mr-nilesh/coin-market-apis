@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IFundService } from './interfaces/fund.service.interface';
-import { CoinStoreService } from '@infra/coinstore/coinstore.service';
 import { ConfigService } from '@nestjs/config';
-import { IHttpClient } from '@infra/http/http.interface';
 import {
   ICancelWithdrawFilters,
   IDepositAddressFilters,
@@ -11,8 +9,10 @@ import {
   ITransferFund,
   IWithdrawalHistoryFilters,
 } from './dto/fund';
-import { ICoinStoreResponse } from '@infra/coinstore/dto/coinstoreResponse.interface';
-import { API_URLS } from '@config/constant';
+import { CoinStoreService } from '../../infra/coinstore/coinstore.service';
+import { IHttpClient } from '../../infra/http/http.interface';
+import { ICoinStoreResponse } from '../../infra/coinstore/dto/coinstoreResponse.interface';
+import { API_URLS } from '../../config/constant';
 
 @Injectable()
 export class FundService extends CoinStoreService implements IFundService {

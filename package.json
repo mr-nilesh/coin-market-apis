@@ -1,9 +1,8 @@
 {
-  "name": "coinstore-api",
+  "name": "coin-market-apis",
   "version": "0.0.1",
   "description": "",
-  "author": "",
-  "private": true,
+  "author": "Nilesh Mistry",
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",

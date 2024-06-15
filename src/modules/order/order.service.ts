@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { IOrderService } from './interfaces/order.service.interface';
 import { ConfigService } from '@nestjs/config';
-import { IHttpClient } from 'src/infra/http/http.interface';
-import { CoinStoreService } from 'src/infra/coinstore/coinstore.service';
-import { ICoinStoreResponse } from 'src/infra/coinstore/dto/coinstoreResponse.interface';
-import { API_URLS } from 'src/config/constant';
 import { ITradeFilters } from './dto/order';
-import { getQueryString } from 'src/utils/utility';
+import { CoinStoreService } from '../../infra/coinstore/coinstore.service';
+import { IHttpClient } from '../../infra/http/http.interface';
+import { ICoinStoreResponse } from '../../infra/coinstore/dto/coinstoreResponse.interface';
+import { API_URLS } from '../../config/constant';
+import { getQueryString } from '../../utils/utility';
 
 @Injectable()
 export class OrderService extends CoinStoreService implements IOrderService {

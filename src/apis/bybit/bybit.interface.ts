@@ -1,1 +1,1 @@
-export interface Bybit {}
+export interface IBybit {}
