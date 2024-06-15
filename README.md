@@ -9,9 +9,11 @@ $ npm i coin-market-apis
 
 ## Env Variables
 Add following environment varialbes in your .env file.
+```
 COIN_STORE_URL=coinstore url
 COIN_STORE_SECRET_KEY=coin store secret key
 COIN_STORE_API_KEY=coin store api key
+```
 
 ## Usage
 ```
