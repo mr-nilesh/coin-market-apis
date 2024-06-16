@@ -1,9 +1,13 @@
 {
   "name": "coin-market-apis",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "author": "Nilesh Mistry",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mr-nilesh/coin-market-apis.git"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
