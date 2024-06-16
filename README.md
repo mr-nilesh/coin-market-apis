@@ -123,6 +123,6 @@ For example:
 const filterObj = {
   symbol: 'btcusdt' // symbol field is the same as coinstore APIs field
 }
-const data = await coinStore.getCurrentOrdersV2();
+const data = await coinStore.getCurrentOrdersV2(filterObj);
 ```
 
