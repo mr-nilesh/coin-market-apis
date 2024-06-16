@@ -1,7 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { IOrderService } from './interfaces/order.service.interface';
 import { ConfigService } from '@nestjs/config';
-import { ITradeFilters } from './dto/order';
+import {
+  IBatchOrderingRequest,
+  ICancelBatchRequest,
+  ICancelOrderRequest,
+  ICreateOrderRequest,
+  IGetCurrencyInfoV2Filters,
+  IGetOrderInfoFilters,
+  IOneClickCancellationRequest,
+  IOrderFilters,
+  ITradeFilters,
+} from './dto/order';
 import { CoinStoreService } from '../../infra/coinstore/coinstore.service';
 import { IHttpClient } from '../../infra/http/http.interface';
 import { ICoinStoreResponse } from '../../infra/coinstore/dto/coinstoreResponse.interface';
@@ -28,9 +38,12 @@ export class OrderService extends CoinStoreService implements IOrderService {
       throw error;
     }
   }
-  async getCurrentOrdersV2(): Promise<ICoinStoreResponse> {
+  async getCurrentOrdersV2(
+    filters: IOrderFilters,
+  ): Promise<ICoinStoreResponse> {
     try {
-      const payload: Buffer = Buffer.from('');
+      const queryString: string = this._getQueryStringWithSymbol(filters);
+      const payload: Buffer = Buffer.from(queryString, 'utf-8');
       const orders: ICoinStoreResponse = await this.requestData(
         'GET',
         API_URLS.coinStore.getCurrentOrdersV2,
@@ -58,9 +71,11 @@ export class OrderService extends CoinStoreService implements IOrderService {
       throw error;
     }
   }
-  async cancelOrder(): Promise<ICoinStoreResponse> {
+  async cancelOrder(
+    requestParams: ICancelOrderRequest,
+  ): Promise<ICoinStoreResponse> {
     try {
-      const payload: Buffer = Buffer.from('');
+      const payload: Buffer = Buffer.from(JSON.stringify(requestParams));
       const orders: ICoinStoreResponse = await this.requestData(
         'POST',
         API_URLS.coinStore.cancelOrder,
@@ -72,9 +87,11 @@ export class OrderService extends CoinStoreService implements IOrderService {
       throw error;
     }
   }
-  async oneClickCancellation(): Promise<ICoinStoreResponse> {
+  async oneClickCancellation(
+    requestParams: IOneClickCancellationRequest,
+  ): Promise<ICoinStoreResponse> {
     try {
-      const payload: Buffer = Buffer.from('');
+      const payload: Buffer = Buffer.from(JSON.stringify(requestParams));
       const orders: ICoinStoreResponse = await this.requestData(
         'POST',
         API_URLS.coinStore.oneClickCancellation,
@@ -86,9 +103,11 @@ export class OrderService extends CoinStoreService implements IOrderService {
       throw error;
     }
   }
-  async createOrder(): Promise<ICoinStoreResponse> {
+  async createOrder(
+    requestParams: ICreateOrderRequest,
+  ): Promise<ICoinStoreResponse> {
     try {
-      const payload: Buffer = Buffer.from('');
+      const payload: Buffer = Buffer.from(JSON.stringify(requestParams));
       const orders: ICoinStoreResponse = await this.requestData(
         'POST',
         API_URLS.coinStore.createOrder,
@@ -100,9 +119,11 @@ export class OrderService extends CoinStoreService implements IOrderService {
       throw error;
     }
   }
-  async batchOrdering(): Promise<ICoinStoreResponse> {
+  async batchOrdering(
+    requestParams: IBatchOrderingRequest,
+  ): Promise<ICoinStoreResponse> {
     try {
-      const payload: Buffer = Buffer.from('');
+      const payload: Buffer = Buffer.from(JSON.stringify(requestParams));
       const orders: ICoinStoreResponse = await this.requestData(
         'POST',
         API_URLS.coinStore.batchOrdering,
@@ -114,9 +135,11 @@ export class OrderService extends CoinStoreService implements IOrderService {
       throw error;
     }
   }
-  async batchCancellation(): Promise<ICoinStoreResponse> {
+  async batchCancellation(
+    requestParams: ICancelBatchRequest,
+  ): Promise<ICoinStoreResponse> {
     try {
-      const payload: Buffer = Buffer.from('');
+      const payload: Buffer = Buffer.from(JSON.stringify(requestParams));
       const orders: ICoinStoreResponse = await this.requestData(
         'POST',
         API_URLS.coinStore.batchCancellation,
@@ -128,9 +151,12 @@ export class OrderService extends CoinStoreService implements IOrderService {
       throw error;
     }
   }
-  async getOrderInfo(): Promise<ICoinStoreResponse> {
+  async getOrderInfo(
+    filters: IGetOrderInfoFilters,
+  ): Promise<ICoinStoreResponse> {
     try {
-      const payload: Buffer = Buffer.from('');
+      const queryString: string = this._getQueryStringWithSymbol(filters);
+      const payload: Buffer = Buffer.from(queryString, 'utf-8');
       const orders: ICoinStoreResponse = await this.requestData(
         'GET',
         API_URLS.coinStore.getOrderInfo,
@@ -142,9 +168,12 @@ export class OrderService extends CoinStoreService implements IOrderService {
       throw error;
     }
   }
-  async getOrderInfoV2(): Promise<ICoinStoreResponse> {
+  async getOrderInfoV2(
+    filters: IGetCurrencyInfoV2Filters,
+  ): Promise<ICoinStoreResponse> {
     try {
-      const payload: Buffer = Buffer.from('');
+      const queryString: string = this._getQueryStringWithSymbol(filters);
+      const payload: Buffer = Buffer.from(queryString, 'utf-8');
       const orders: ICoinStoreResponse = await this.requestData(
         'GET',
         API_URLS.coinStore.getOrderInfoV2,
@@ -157,7 +186,7 @@ export class OrderService extends CoinStoreService implements IOrderService {
     }
   }
 
-  private _getQueryStringWithSymbol(filters: ITradeFilters): string {
+  private _getQueryStringWithSymbol(filters: any): string {
     let queryString = `symbol=${filters.symbol}`;
     if (filters.pageNum) {
       queryString += getQueryString(filters);

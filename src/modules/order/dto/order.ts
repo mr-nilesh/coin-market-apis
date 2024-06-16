@@ -25,3 +25,60 @@ export interface ITradeFilters {
   pageSize?: number;
   side?: number;
 }
+
+export interface IOrderFilters {
+  symbol?: string;
+  ordId?: number;
+  clOrdId?: string;
+}
+
+export interface ICancelOrderRequest {
+  symbol: string;
+  ordId: number;
+}
+
+export interface IOneClickCancellationRequest {
+  symbol?: string;
+}
+
+export interface ICreateOrderRequest {
+  clOrdId?: string;
+  symbol: string;
+  side: string;
+  ordType: string;
+  timeInForce?: string;
+  ordPrice?: number;
+  ordQty?: number;
+  ordAmt?: number;
+  timestamp: number;
+}
+
+export interface IBatchOrderingOrder {
+  clOrdId?: string;
+  side: string;
+  ordType: string;
+  timeInForce?: string;
+  ordPrice?: number;
+  ordQty?: number;
+  ordAmt?: number;
+}
+
+export interface IBatchOrderingRequest {
+  symbol: string;
+  timestamp: number;
+  orders?: IBatchOrderingOrder[];
+}
+
+export interface ICancelBatchRequest {
+  symbol: string;
+  orderIds: string[];
+}
+
+export interface IGetOrderInfoFilters {
+  ordId?: number;
+}
+
+export interface IGetCurrencyInfoV2Filters {
+  ordId?: number;
+  clOrdId?: string;
+}
