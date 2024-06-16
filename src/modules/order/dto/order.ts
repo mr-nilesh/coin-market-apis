@@ -38,7 +38,7 @@ export interface ICancelOrderRequest {
 }
 
 export interface IOneClickCancellationRequest {
-  symbol?: string;
+  symbol: string;
 }
 
 export interface ICreateOrderRequest {
