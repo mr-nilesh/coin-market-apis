@@ -4,7 +4,17 @@ import { ICoinStore } from './coinstore.interface';
 import { AppModule } from '../../app.module';
 import { ICoinStoreResponse } from '../../infra/coinstore/dto/coinstoreResponse.interface';
 import { IOrderService } from '../../modules/order/interfaces/order.service.interface';
-import { ITradeFilters } from '../../modules/order/dto/order';
+import {
+  IBatchOrderingRequest,
+  ICancelBatchRequest,
+  ICancelOrderRequest,
+  ICreateOrderRequest,
+  IGetCurrencyInfoV2Filters,
+  IGetOrderInfoFilters,
+  IOneClickCancellationRequest,
+  IOrderFilters,
+  ITradeFilters,
+} from '../../modules/order/dto/order';
 import { IAccountService } from '../../modules/account/interfaces/account.service.interface';
 import { IBasicInfoService } from '../../modules/basicInfo/interfaces/basicInfo.service.interface';
 import { IGetCurrencyInfoFilters } from '../../modules/basicInfo/dto/basicInfo';
@@ -30,49 +40,65 @@ export class CoinStore implements ICoinStore {
     return orderService.getCurrentOrders();
   }
 
-  async getCurrentOrdersV2(): Promise<ICoinStoreResponse> {
+  async getCurrentOrdersV2(
+    filterObj: IOrderFilters,
+  ): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.getCurrentOrdersV2();
+    return orderService.getCurrentOrdersV2(filterObj);
   }
 
-  async getLatestTrade(filters: ITradeFilters): Promise<ICoinStoreResponse> {
+  async getLatestTrade(filterObj: ITradeFilters): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.getLatestTrade(filters);
+    return orderService.getLatestTrade(filterObj);
   }
 
-  async cancelOrder(): Promise<ICoinStoreResponse> {
+  async cancelOrder(
+    filterObj: ICancelOrderRequest,
+  ): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.cancelOrder();
+    return orderService.cancelOrder(filterObj);
   }
 
-  async oneClickCancellation(): Promise<ICoinStoreResponse> {
+  async oneClickCancellation(
+    filterObj: IOneClickCancellationRequest,
+  ): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.oneClickCancellation();
+    return orderService.oneClickCancellation(filterObj);
   }
 
-  async createOrder(): Promise<ICoinStoreResponse> {
+  async createOrder(
+    requestParams: ICreateOrderRequest,
+  ): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.createOrder();
+    return orderService.createOrder(requestParams);
   }
 
-  async batchOrdering(): Promise<ICoinStoreResponse> {
+  async batchOrdering(
+    requestParams: IBatchOrderingRequest,
+  ): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.batchOrdering();
+    return orderService.batchOrdering(requestParams);
   }
 
-  async batchCancellation(): Promise<ICoinStoreResponse> {
+  async batchCancellation(
+    requestParams: ICancelBatchRequest,
+  ): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.batchCancellation();
+    return orderService.batchCancellation(requestParams);
   }
 
-  async getOrderInfo(): Promise<ICoinStoreResponse> {
+  async getOrderInfo(
+    filterObj: IGetOrderInfoFilters,
+  ): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.getOrderInfo();
+    return orderService.getOrderInfo(filterObj);
   }
 
-  async getOrderInfoV2(): Promise<ICoinStoreResponse> {
+  async getOrderInfoV2(
+    filterObj: IGetCurrencyInfoV2Filters,
+  ): Promise<ICoinStoreResponse> {
     const orderService: IOrderService = this._nestApp.get('OrderService');
-    return orderService.getOrderInfoV2();
+    return orderService.getOrderInfoV2(filterObj);
   }
 
   async getAssetsBalance(): Promise<ICoinStoreResponse> {
