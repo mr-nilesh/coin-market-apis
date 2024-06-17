@@ -26,6 +26,13 @@ import {
   IWithdrawalHistoryFilters,
 } from '../../modules/fund/dto/fund';
 import { IFundService } from '../../modules/fund/interfaces/fund.service.interface';
+import {
+  IGetDepthFilters,
+  IGetKLineFilters,
+  IGetLatestPricesFilters,
+  IMarketLatestTradesFilters,
+} from '../../modules/ticker/dto/ticker';
+import { ITickerService } from '../../modules/ticker/interfaces/ticker.service.interface';
 
 export class CoinStore implements ICoinStore {
   private _nestApp: INestApplicationContext;
@@ -156,5 +163,34 @@ export class CoinStore implements ICoinStore {
   async transferFund(filterObj: ITransferFund): Promise<ICoinStoreResponse> {
     const fundService: IFundService = this._nestApp.get('FundService');
     return fundService.transferFund(filterObj);
+  }
+
+  async getTickers(): Promise<ICoinStoreResponse> {
+    const tickerService: ITickerService = this._nestApp.get('TickerService');
+    return tickerService.getTickers();
+  }
+
+  async getDepth(filterObj: IGetDepthFilters): Promise<ICoinStoreResponse> {
+    const tickerService: ITickerService = this._nestApp.get('TickerService');
+    return tickerService.getDepth(filterObj);
+  }
+
+  async getKLine(filterObj: IGetKLineFilters): Promise<ICoinStoreResponse> {
+    const tickerService: ITickerService = this._nestApp.get('TickerService');
+    return tickerService.getKLine(filterObj);
+  }
+
+  async getMarketLatestTrade(
+    filterObj: IMarketLatestTradesFilters,
+  ): Promise<ICoinStoreResponse> {
+    const tickerService: ITickerService = this._nestApp.get('TickerService');
+    return tickerService.getMarketLatestTrade(filterObj);
+  }
+
+  async getLatestPrices(
+    filterObj: IGetLatestPricesFilters,
+  ): Promise<ICoinStoreResponse> {
+    const tickerService: ITickerService = this._nestApp.get('TickerService');
+    return tickerService.getLatestPrices(filterObj);
   }
 }
