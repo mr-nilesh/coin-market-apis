@@ -19,6 +19,11 @@ export const API_URLS = {
     transferFund: '/api/v1/future/transfer',
     getSymbols: '/api/v2/public/config/spot/symbols',
     getCurrencyInfo: '/api/fi/v1/common/currency',
+    getTickers: '/api/v1/market/tickers',
+    getDepth: '/api/v1/market/depth',
+    getKLine: '/api/v1/market/kline',
+    getMarketLatestTrade: '/api/v1/market/trade',
+    getLatestPrices: '/api/v1/ticker/price',
   },
 };
 
