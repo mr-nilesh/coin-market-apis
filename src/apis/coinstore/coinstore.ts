@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { ICoinStore } from './coinstore.interface';
 import { AppModule } from '../../app.module';
 import { ICoinStoreResponse } from '../../infra/coinstore/dto/coinstoreResponse.interface';
-import { IOrderService } from '../../modules/order/interfaces/order.service.interface';
+import { IOrderService } from '../../modules/coinstore/order/interfaces/order.service.interface';
 import {
   IBatchOrderingRequest,
   ICancelBatchRequest,
@@ -14,25 +14,25 @@ import {
   IOneClickCancellationRequest,
   IOrderFilters,
   ITradeFilters,
-} from '../../modules/order/dto/order';
-import { IAccountService } from '../../modules/account/interfaces/account.service.interface';
-import { IBasicInfoService } from '../../modules/basicInfo/interfaces/basicInfo.service.interface';
-import { IGetCurrencyInfoFilters } from '../../modules/basicInfo/dto/basicInfo';
+} from '../../modules/coinstore/order/dto/order';
+import { IAccountService } from '../../modules/coinstore/account/interfaces/account.service.interface';
+import { IBasicInfoService } from '../../modules/coinstore/basicInfo/interfaces/basicInfo.service.interface';
+import { IGetCurrencyInfoFilters } from '../../modules/coinstore/basicInfo/dto/basicInfo';
 import {
   ICancelWithdrawFilters,
   IDepositAddressFilters,
   IDoWithdrawFilters,
   ITransferFund,
   IWithdrawalHistoryFilters,
-} from '../../modules/fund/dto/fund';
-import { IFundService } from '../../modules/fund/interfaces/fund.service.interface';
+} from '../../modules/coinstore/fund/dto/fund';
+import { IFundService } from '../../modules/coinstore/fund/interfaces/fund.service.interface';
 import {
   IGetDepthFilters,
   IGetKLineFilters,
   IGetLatestPricesFilters,
   IMarketLatestTradesFilters,
-} from '../../modules/ticker/dto/ticker';
-import { ITickerService } from '../../modules/ticker/interfaces/ticker.service.interface';
+} from '../../modules/coinstore/ticker/dto/ticker';
+import { ITickerService } from '../../modules/coinstore/ticker/interfaces/ticker.service.interface';
 
 export class CoinStore implements ICoinStore {
   private _nestApp: INestApplicationContext;

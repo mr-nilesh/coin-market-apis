@@ -25,6 +25,38 @@ export const API_URLS = {
     getMarketLatestTrade: '/api/v1/market/trade',
     getLatestPrices: '/api/v1/ticker/price',
   },
+  bybit: {
+    // market
+    getServerTime: '/v5/market/time',
+    getKLine: '/v5/market/kline',
+    getMarketPriceKLine: '/v5/market/mark-price-kline',
+    getIndexPriceKLine: '/v5/market/index-price-kline',
+    getPremiumIndexPriceKLine: '/v5/market/premium-index-price-kline',
+    getInstrumentsInfo: '/v5/market/instruments-info',
+    getOrderbook: '/v5/market/orderbook',
+    getTickers: '/v5/market/tickers',
+    getFundingRateHistory: '/v5/market/funding/history',
+    getPublicRecentTradingHistory: '/v5/market/recent-trade',
+    getOpenInterest: '/v5/market/open-interest',
+    getHistoricalVolatility: '/v5/market/historical-volatility',
+    getInsurance: '/v5/market/insurance',
+    getRiskLimit: '/v5/market/risk-limit',
+    getDeliveryPrice: '/v5/market/delivery-price',
+    getLongShortRatio: '/v5/market/account-ratio',
+    // trade
+    placeOrder: '/v5/order/create',
+    amendOrder: '/v5/order/amend',
+    cancelOrder: '/v5/order/cancel',
+    getRealTimeOpenAndClosedOrders: '/v5/order/realtime',
+    cancelAllOrders: '/v5/order/cancel-all',
+    getOrderHistory: '/v5/order/history',
+    getTradeHistory: '/v5/execution/list',
+    batchPlaceOrder: '/v5/order/create-batch',
+    batchAmendOrder: '/v5/order/amend-batch',
+    batchCancelOrder: '/v5/order/cancel-batch',
+    getSpotBorrowQuota: '/v5/order/spot-borrow-check',
+    setDCP: '/v5/order/disconnected-cancel-all',
+  },
 };
 
 export const PAGINATION = {

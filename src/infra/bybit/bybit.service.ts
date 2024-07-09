@@ -1,24 +1,23 @@
-import { ConfigService } from '@nestjs/config';
 import * as crypto from 'crypto';
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  ICoinStoreService,
-  IRequestOptions,
-} from './coinstore.service.interface';
+import { IBybitService } from './bybit.service.interface';
+import { ConfigService } from '@nestjs/config';
 import { IHttpClient } from '../http/http.interface';
+import { IRequestOptions } from '../coinstore/coinstore.service.interface';
 
 @Injectable()
-export class CoinStoreService implements ICoinStoreService {
+export class BybitService implements IBybitService {
   private _baseUrl: string;
   private _secretKey: string;
   private _apiKey: string;
+  private _recvWindow: number = 5000;
   constructor(
     private readonly _configService: ConfigService,
     @Inject('HttpClient') private readonly _httpClient: IHttpClient,
   ) {
-    this._baseUrl = this._configService.get('COIN_STORE_URL');
-    this._secretKey = this._configService.get('COIN_STORE_SECRET_KEY');
-    this._apiKey = this._configService.get('COIN_STORE_API_KEY');
+    this._baseUrl = this._configService.get('BYBIT_URL');
+    this._apiKey = this._configService.get('BYBIT_API_KEY');
+    this._secretKey = this._configService.get('BYBIT_SECRET_KEY');
   }
 
   expirationTime(): number {
@@ -29,42 +28,20 @@ export class CoinStoreService implements ICoinStoreService {
     return Math.floor(this.expirationTime() / 30000).toString();
   }
 
-  /*
-    Creates a buffer from the expiration time key.
-    The buffer is used to store the expiration time securely. 
-    @returns A Buffer containing the expiration time key 
-  */
-  private _createExpirationBuffer(): Buffer {
-    const key = this.generateExpirationTime();
-    return Buffer.from(key, 'utf-8');
+  private _getCurrentTimestamp() {
+    return Date.now().toString();
   }
 
-  /**
-   * Generates an HMAC (Keyed-Hash Message Authentication Code) using the provided key and data.
-   * @param {string} key - The secret key used for generating the HMAC.
-   * @param {string | Buffer} data - The data to be hashed.
-   * @returns {string} The generated HMAC as a hexadecimal string.
-   */
-  private _generateHmac(key: string, data: string | Buffer): string {
-    return crypto.createHmac('sha256', key).update(data).digest('hex');
-  }
-
-  /**
-   * Generates a key by creating an expiration buffer and then generating an HMAC using the secret key.
-   */
-  private _generateKey(): string {
-    const data: Buffer = this._createExpirationBuffer();
-    return this._generateHmac(this._secretKey, data);
-  }
-
-  /**
-   * Generates a digital signature for the given payload using a generated key.
-   * @param payload The payload to be signed.
-   * @returns A string representing the digital signature.
-   */
-  private _generateSignature(payload: Buffer): string {
-    const key: string = this._generateKey();
-    return this._generateHmac(key, payload);
+  private _generateSignature(parameters: Buffer) {
+    return crypto
+      .createHmac('sha256', this._secretKey)
+      .update(
+        this._getCurrentTimestamp() +
+          this._apiKey +
+          this._recvWindow +
+          parameters,
+      )
+      .digest('hex');
   }
 
   /**
@@ -74,9 +51,11 @@ export class CoinStoreService implements ICoinStoreService {
    */
   private _requestHeader(payload: Buffer) {
     return {
-      'X-CS-APIKEY': this._apiKey,
-      'X-CS-SIGN': this._generateSignature(payload),
-      'X-CS-EXPIRES': this.expirationTime().toString(),
+      'X-BAPI-SIGN-TYPE': '2',
+      'X-BAPI-SIGN': this._generateSignature(payload),
+      'X-BAPI-API-KEY': this._apiKey,
+      'X-BAPI-TIMESTAMP': this._getCurrentTimestamp(),
+      'X-BAPI-RECV-WINDOW': this._recvWindow.toString(),
       'exch-language': 'en_US',
       'Content-Type': 'application/json',
       Accept: '*/*',

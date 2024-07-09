@@ -218,12 +218,45 @@ const filters = {
 const data = await coinStore.transferFund(filters);
 ```
 
-For all the methods above if there is a payload that you need to pass, make sure you pass it in object as a method parameter.
-For example:
+Get tickers
 ```
-const filterObj = {
-  symbol: 'btcusdt' // symbol field is the same as coinstore APIs field
-}
-const data = await coinStore.getCurrentOrdersV2(filterObj);
+const data = await coinStore.getTickers();
+```
+
+Get depth
+```
+const filters = {
+  symbol: '', // required
+  depth: 0
+};
+const data = await coinStore.getDepth(filters);
+```
+
+Get K-Line
+```
+const filters = {
+  symbol: '', // required
+  period: '',
+  size: 0
+};
+const data = await coinStore.getKLine(filters);
+```
+
+Get latest trade
+```
+const filters = {
+  symbol: '', // required
+  period: '',
+  size: 0
+};
+const data = await coinStore.getMarketLatestTrade(filters);
+```
+
+Get the latest prices of of all the symbols
+```
+const filters = {
+  symbol: '', // required
+};
+const data = await coinStore.getLatestPrices(filters);
 ```
 

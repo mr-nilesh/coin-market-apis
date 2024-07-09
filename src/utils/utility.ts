@@ -1,6 +1,4 @@
-import { ITradeFilters } from '../modules/order/dto/order';
-
-export const getQueryString = (filters: ITradeFilters): string => {
+export const getQueryString = (filters: any): string => {
   const params = new URLSearchParams();
   ((filters && Object.keys(filters)) || []).forEach((filterKey: string) => {
     params.append(filterKey, filters[filterKey].toString());
